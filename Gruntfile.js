@@ -27,12 +27,9 @@ module.exports = function (grunt) {
                 src: [
                     'bower_components/angular/angular.js',
                     'bower_components/angular-route/angular-route.js',
-                    'bower_components/ui-bootstrap/dist/ui-bootstrap-0.11.2.js',
+                    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
                     'bower_components/elasticsearch/elasticsearch.angular.js',
-                    'bower_components/d3/d3.js',
-                    'bower_components/c3/c3.js',
                     'bower_components/moment/moment.js',
-                    'bower_components/c3-angular/c3js-directive.js',
                     'javascript/app.js',
                     'javascript/controllers/*',
                     'javascript/directives.js',
@@ -101,7 +98,7 @@ module.exports = function (grunt) {
             },
             staging: {
                 options: {
-                    dest: "/Users/jettrocoenradie/temp/gridshoregui"
+                    dest: "/Users/arihershowitz/temp/elasticgui"
                 }
             }
         }

@@ -1,11 +1,11 @@
 {
   "name": "elasticsearch-gui",
   "version": "1.2.1",
-  "description": "Elasticsearch plugin to show you what you have fot and learn about queries",
+  "description": "Branch of Elasticsearch GUI plugin to simplify interface for document search",
   "main": "index.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jettro/elasticsearch-gui.git"
+    "url": "https://github.com/aih/elasticsearch-gui.git"
   },
   "keywords": [
     "elasticsearch",
@@ -15,9 +15,9 @@
   "author": "Jettro Coenradie",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/jettro/elasticsearch-gui/issues"
+    "url": "https://github.com/aih/elasticsearch-gui/issues"
   },
-  "homepage": "https://github.com/jettro/elasticsearch-gui",
+  "homepage": "https://github.com/aih/elasticsearch-gui",
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-bower-task": "^0.4.0",

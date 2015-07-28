@@ -4,29 +4,19 @@
     <meta charset="utf-8">
     <title>Elasticsearch gui</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Website for looking at elasticsearch data">
+    <meta name="description" content="Simplified website for looking at elasticsearch data">
     <meta name="author" content="Jettro Coenradie">
+    <meta name="author" content="Ari Hershowitz">
 
     <!-- Le styles -->
     <link href="assets/css/app.min.css" rel="stylesheet">
     <link href="assets/css/c3-0.4.7.min.css" rel="stylesheet">
-
 </head>
 
-<body>
+<body >
 
 <div>
     <navbar heading="Elasticsearch GUI">
-        <navbaritem link="dashboard" title="Dashboard"></navbaritem>
-        <navbaritem link="search" title="Search"></navbaritem>
-        <navbaritem link="query" title="Queries"></navbaritem>
-        <navbardropdown title="Tools" link="tools">
-            <navbardropdownitem link="tools/suggestions" title="Suggestions"></navbardropdownitem>
-            <navbardropdownitem link="tools/whereareshards" title="Where are my shards"></navbardropdownitem>
-            <navbardropdownitem link="tools/snapshots" title="Snapshots"></navbardropdownitem>
-        </navbardropdown>
-        <navbaritem link="graph" title="Graphs"></navbaritem>
-        <navbaritem link="about" title="About"></navbaritem>
     </navbar>
 </div>
 
@@ -45,7 +35,7 @@
     <hr>
 
     <footer>
-        <p class="muted credit">Made possible by <a href="http://www.gridshore.nl">Jettro Coenradie</a>. {{ 'Version v%VERSION%.' | interpolate }}
+        <p class="muted credit">Based on an application by Jettro Coenradie</a>. {{ 'Version v%VERSION%.' | interpolate }}
         </p>
 
     </footer>

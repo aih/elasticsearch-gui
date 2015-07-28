@@ -1,4 +1,6 @@
-function NotificationCtrl($scope, $timeout){
+(function () {
+
+    function NotificationCtrl($scope, $timeout){
     $scope.alerts = {};
 
     $scope.$on('msg:notification', function (event, type, message) {
@@ -9,5 +11,8 @@ function NotificationCtrl($scope, $timeout){
             delete $scope.alerts[id];
         }, 10000);
     });
-}
-NotificationCtrl.$inject = ['$scope', '$timeout'];
+    }
+    angular
+      .module('myApp')
+      .controller('NotificationCtrl', ['$scope', '$timeout', NotificationCtrl]);
+})();

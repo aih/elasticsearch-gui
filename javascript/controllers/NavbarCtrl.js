@@ -1,4 +1,6 @@
-function NavbarCtrl($scope, $timeout, $modal, elastic, configuration) {
+(function () {
+
+    function NavbarCtrl($scope, $timeout, $modal, elastic, configuration) {
     $scope.statusCluster = {};
     $scope.serverUrl = elastic.obtainServerAddress();
     $scope.configureServerUrl = false;
@@ -65,6 +67,9 @@ function NavbarCtrl($scope, $timeout, $modal, elastic, configuration) {
         }, 5000); // wait 5 seconds before calling it again
     }
 
-    doCheckStatus();
-}
-NavbarCtrl.$inject = ['$scope', '$timeout', '$modal', 'elastic', 'configuration'];
+    doCheckStatus();  
+    }
+    angular
+      .module('myApp')
+      .controller('NavbarCtrl', ['$scope', '$timeout', '$modal', 'elastic', 'configuration', NavbarCtrl]);
+})();
