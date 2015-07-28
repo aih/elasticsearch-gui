@@ -27,6 +27,7 @@ module.exports = function (grunt) {
                 src: [
                     'bower_components/angular/angular.js',
                     'bower_components/angular-route/angular-route.js',
+                    'bower_components/angular-sanitize/angular-sanitize.js',
                     'bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js',
                     'bower_components/elasticsearch/elasticsearch.angular.js',
                     'bower_components/moment/moment.js',

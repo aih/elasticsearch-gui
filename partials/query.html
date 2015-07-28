@@ -153,13 +153,13 @@
                                     <table class="table table-condensed" ng-hide="query.highlight">
                                         <tr ng-repeat="(key,value) in doc._source">
                                             <th>{{key}}</th>
-                                            <td>{{value}}</td>
+                                            <td><div ng-bind-html="value"></div></td>
                                         </tr>
                                     </table>
                                     <table class="table table-condensed" ng-show="query.highlight">
                                         <tr ng-repeat="(key,value) in doc.highlight">
                                             <th>{{key}}</th>
-                                            <td><p ng-repeat="item in value">{{item}}</p></td>
+                                            <td><div ng-repeat="item in value">{{item}}</p></td>
                                         </tr>
                                     </table>
                                 </div>
