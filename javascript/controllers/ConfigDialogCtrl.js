@@ -7,7 +7,7 @@
         $modalInstance.close($scope.configuration);
     };
 
-} 
+}
 
     angular
       .module('myApp')

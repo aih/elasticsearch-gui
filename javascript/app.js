@@ -2,8 +2,8 @@
 
 // Declare app level module which depends on filters, and services
 var myApp = angular.module('myApp', ['ngRoute','myApp.filters', 'myApp.services', 'myApp.directives', 'ui.bootstrap','elasticsearch']).config(['$routeProvider', function ($routeProvider) {
-            $routeProvider.when('/query', {templateUrl: 'partials/query.html', controller: QueryCtrl});
-            $routeProvider.when('/tools/suggestions', {templateUrl: 'partials/suggestions.html', controller: SuggestionsCtrl});
+            $routeProvider.when('/query', {templateUrl: 'partials/query.html', controller: 'QueryCtrl'});
+            $routeProvider.when('/tools/suggestions', {templateUrl: 'partials/suggestions.html', controller: 'SuggestionsCtrl'});
             $routeProvider.when('/about', {templateUrl: 'partials/about.html'});
             $routeProvider.otherwise({redirectTo: '/query'});
         }]);

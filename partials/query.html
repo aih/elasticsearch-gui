@@ -4,20 +4,6 @@
                 popover="Here you can select the index that we query over. If you select nothing, we query over all data"
                 class="btn btn-link"><span class="glyphicon glyphicon-question-sign"></span></button>
     </div>
-    <div class="row">
-    <div class="col-md-2"><span class="text-info">Available types:</span>
-        <button type="button" popover-placement="right"
-                popover="Here you can select the type of documents that we query over. If you select nothing, all types are used for the query. Beware, if you select a type that is not available in the chosen index you see nothing."
-                class="btn btn-link"><span class="glyphicon glyphicon-question-sign"></span></button>
-    </div>
-    <div class="col-md-9">
-        <div id="chooseTypeBtn" class="btn-group">
-            <button type="button" class="btn btn-xs btn-info" ng-model="type.state" ng-repeat="type in query.types"
-                    btn-checkbox>{{type.name}}
-            </button>
-        </div>
-    </div>
-</div>
     <div class="col-md-9">
         <div id="chooseIndexBtn" class="btn-group">
             <button type="button" class="btn btn-xs btn-info" ng-model="index.state" ng-repeat="index in query.indices"
@@ -165,7 +151,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <table class="table table-condensed" ng-hide="query.highlight">
-                                        <tr ng-repeat="(key,value) in doc.fields">
+                                        <tr ng-repeat="(key,value) in doc._source">
                                             <th>{{key}}</th>
                                             <td>{{value}}</td>
                                         </tr>

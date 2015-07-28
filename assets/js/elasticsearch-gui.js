@@ -70893,8 +70893,8 @@ module.exports = utils;
 
 // Declare app level module which depends on filters, and services
 var myApp = angular.module('myApp', ['ngRoute','myApp.filters', 'myApp.services', 'myApp.directives', 'ui.bootstrap','elasticsearch']).config(['$routeProvider', function ($routeProvider) {
-            $routeProvider.when('/query', {templateUrl: 'partials/query.html', controller: QueryCtrl});
-            $routeProvider.when('/tools/suggestions', {templateUrl: 'partials/suggestions.html', controller: SuggestionsCtrl});
+            $routeProvider.when('/query', {templateUrl: 'partials/query.html', controller: 'QueryCtrl'});
+            $routeProvider.when('/tools/suggestions', {templateUrl: 'partials/suggestions.html', controller: 'SuggestionsCtrl'});
             $routeProvider.when('/about', {templateUrl: 'partials/about.html'});
             $routeProvider.otherwise({redirectTo: '/query'});
         }]);
@@ -70922,7 +70922,7 @@ serviceModule.value('version', '1.2.1');
         $modalInstance.close($scope.configuration);
     };
 
-} 
+}
 
     angular
       .module('myApp')
@@ -71051,6 +71051,8 @@ NodeInfoCtrl.$inject = ['$scope', 'elastic', '$routeParams'];
       .module('myApp')
       .controller('NotificationCtrl', ['$scope', '$timeout', NotificationCtrl]);
 })();
+
+(function () {
 
 function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
     $scope.fields = [];
@@ -71415,7 +71417,12 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
 
     $scope.resetQuery();
 }
-QueryCtrl.$inject = ['$scope', '$modal', 'elastic', 'aggregateBuilder', 'queryStorage'];
+angular
+      .module('myApp')
+      .controller('QueryCtrl', ['$scope', '$modal', 'elastic', 'aggregateBuilder', 'queryStorage', QueryCtrl]);
+})();
+
+(function () {
 
 function SuggestionsCtrl($scope, elastic) {
     $scope.suggest = {};
@@ -71478,7 +71485,11 @@ function SuggestionsCtrl($scope, elastic) {
 
     $scope.loadIndices();
 }
-SuggestionsCtrl.$inject = ['$scope', 'elastic'];
+
+angular
+      .module('myApp')
+      .controller('SuggestionsCtrl', ['$scope',  'elastic', SuggestionsCtrl]);
+})();
 
 'use strict';
 

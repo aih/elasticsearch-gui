@@ -1,3 +1,5 @@
+(function () {
+
 function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
     $scope.fields = [];
     $scope.createdQuery = "";
@@ -361,4 +363,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
 
     $scope.resetQuery();
 }
-QueryCtrl.$inject = ['$scope', '$modal', 'elastic', 'aggregateBuilder', 'queryStorage'];
+angular
+      .module('myApp')
+      .controller('QueryCtrl', ['$scope', '$modal', 'elastic', 'aggregateBuilder', 'queryStorage', QueryCtrl]);
+})();

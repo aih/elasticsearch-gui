@@ -1,3 +1,5 @@
+(function () {
+
 function SuggestionsCtrl($scope, elastic) {
     $scope.suggest = {};
     $scope.suggest.index = '';
@@ -59,4 +61,8 @@ function SuggestionsCtrl($scope, elastic) {
 
     $scope.loadIndices();
 }
-SuggestionsCtrl.$inject = ['$scope', 'elastic'];
+
+angular
+      .module('myApp')
+      .controller('SuggestionsCtrl', ['$scope',  'elastic', SuggestionsCtrl]);
+})();
