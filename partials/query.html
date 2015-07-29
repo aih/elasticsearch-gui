@@ -25,8 +25,8 @@
             </button-->
             <!--span class="text-info">    Use explain:</span>
             <label class="checkbox-inline"><input type="checkbox" ng-model="query.explain"/></label>
-            <span class="text-info">Highlight terms:</span>
-            <label class="checkbox-inline"><input type="checkbox" ng-model="query.highlight"/></label-->
+            <span class="text-info">Highlight terms:</span-->
+            <label class="checkbox-inline"><input type="checkbox" ng-model="query.highlight"/></label>
             <span class="text-info">Advanced search:</span>
             <label class="checkbox-inline"><input class="checkbox" type="checkbox" ng-model="query.multiSearch"></label>
         </div>
@@ -135,25 +135,25 @@
                 </div>
 
                 <div ng-repeat="doc in queryResults.hits">
-                    <div class="row" ng-click="doc.showDetails = !doc.showDetails" style="cursor:pointer;">
-                        <div class="col-md-2">{{doc._index}}</div>
-                        <div class="col-md-3">{{doc._id}}</div>
-                        <div class="col-md-1">{{doc._score}}</div>
+                    <div class="row" ng-click="doc.showDetails = !doc.showDetails" style="cursor:pointer;" >
+                        <div class="col-md-2" ng-style="doc.showDetails && {'background-color': '#31beb1'}" style="background-clip:content-box">{{doc._index}}</div>
+                        <div class="col-md-3" >{{doc._id}}</div>
+                        <div class="col-md-1" >{{doc._score}}</div>
                     </div>
                     <div class="row" ng-show="doc.showDetails">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <table class="table table-condensed" ng-hide="query.highlight">
+                                    <table class="table table-condensed" ng-hide="query.highlight" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
                                         <tr ng-repeat="(key,value) in doc._source">
                                             <th>{{key}}</th>
-                                            <td><div ng-bind-html="value"></div></td>
+                                            <td><div ng-bind-html="value|formatDate"></div></td>
                                         </tr>
                                     </table>
-                                    <table class="table table-condensed" ng-show="query.highlight">
+                                    <table class="table table-condensed" ng-show="query.highlight" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
                                         <tr ng-repeat="(key,value) in doc.highlight">
                                             <th>{{key}}</th>
-                                            <td><div ng-repeat="item in value">{{item}}</p></td>
+                                            <td><div ng-repeat="item in value"><div ng-bind-html="item|formatDate"></div></div></td>
                                         </tr>
                                     </table>
                                 </div>

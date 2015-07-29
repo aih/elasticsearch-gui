@@ -77841,14 +77841,17 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         query.body.aggs = aggregateBuilder.build($scope.query.aggs);
 
         query.body.explain = $scope.query.explain;
-        if ($scope.query.highlight) {
-            var highlight = {"fields": {}};
-            angular.forEach($scope.query.chosenFields, function (value) {
-                highlight.fields[value] = {};
+        var highlight = { 
+                "pre_tags" : ["<mark>"],
+                "post_tags" : ["</mark>"], 
+                "encoder" : "html",
+                "fields": {}};
+        //TODO only add highlighting for fields selected in config or by user
+        //TODO set fragment size in configuration
+            angular.forEach(Object.keys($scope.fields), function (value) {
+                highlight.fields[value] = {"fragmentSize": "100"};
             });
             query.body.highlight = highlight;
-            console.log(query);
-        }
         return query;
     }
 
@@ -78093,7 +78096,14 @@ angular.module('myApp.filters', []).
     return function(text) {
       return String(text).replace(/\%VERSION\%/mg, version);
     }
+  }]).
+  filter('formatDate', [function() {
+    return function(text) {
+      var newText = moment(text,'YYYY-MM-DDTHH:mm:ss.SSSSZ',true).isValid() ? moment(text,'YYYY-MM-DDTHH:mm:ss.SSSSZ').format('MM/DD/YY') : text;
+      return newText;
+    }
   }]);
+;
 
 serviceModule.factory('aggregateBuilder', function () {
     function AggregateBuilder() {
@@ -78148,7 +78158,10 @@ serviceModule.factory('configuration', ['$rootScope', 'localStorage', '$location
             configuration = {
                 title: undefined,
                 description: undefined,
-                exludedIndexes: undefined,
+                includedIndexes: undefined,
+                displayFields: undefined,
+                highlightFields: undefined,
+                excludedIndexes: undefined,
                 serverUrl: host
             };
         }

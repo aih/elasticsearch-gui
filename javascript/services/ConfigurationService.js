@@ -17,7 +17,10 @@ serviceModule.factory('configuration', ['$rootScope', 'localStorage', '$location
             configuration = {
                 title: undefined,
                 description: undefined,
-                exludedIndexes: undefined,
+                includedIndexes: undefined,
+                displayFields: undefined,
+                highlightFields: undefined,
+                excludedIndexes: undefined,
                 serverUrl: host
             };
         }
