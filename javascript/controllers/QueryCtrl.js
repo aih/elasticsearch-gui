@@ -17,7 +17,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
     $scope.query.advanced = {};
     $scope.query.advanced.searchFields = [];
     $scope.query.advanced.newType = 'or';
-    $scope.query.multiSearch=false;
+    $scope.query.multiSearch=true;
 
 
     // initialize pagination
@@ -182,7 +182,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         $scope.query.advanced.newText = null;
         $scope.query.advanced.newField = null;
 
-        $scope.query.multiSearch=false;
+        $scope.query.multiSearch=true;
 
         $scope.changeQuery();
         $scope.query.type = "or";
