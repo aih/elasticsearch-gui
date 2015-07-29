@@ -253,6 +253,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         }
         if ($scope.query.multiSearch && $scope.query.advanced.searchFields.length > 0) {
             var tree = {};
+            console.log($scope.fields);
             for (var i = 0; i < $scope.query.advanced.searchFields.length; i++) {
                 var searchField = $scope.query.advanced.searchFields[i];
                 var fieldForSearch = $scope.fields[searchField.field];
@@ -285,6 +286,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
                 highlight.fields[value] = {};
             });
             query.body.highlight = highlight;
+            console.log(query);
         }
         return query;
     }

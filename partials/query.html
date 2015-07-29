@@ -14,16 +14,6 @@
 </div>
 <form novalidate class="form-search" ng-submit="restartSearch()">
     <div class="row">
-        <div class="col-md-2">
-            <span class="text-info">Query config</span>
-            <button type="button" popover-placement="right"
-                    popover="Here you can configure some additional items on the query. All queries use the Match query
-                    type. You can select the multi search option, than you can add multiple fields, values to search for
-                    and the type (or, and, phrase). If you select the explain option you'll learn more about the scoring
-                    of the returned results. When selecting highlighting we also show the highlighted fields."
-                    class="btn btn-link"><span class="glyphicon glyphicon-question-sign"></span></button>
-
-        </div>
         <div class="col-md-9">
             <button class="btn btn-info btn-sm" ng-click="resetQuery()" title="Reset all choices"><span
                     class="glyphicon glyphicon-refresh glyphicon-white"></span> Reset</button>
@@ -34,28 +24,32 @@
                     class="glyphicon glyphicon-download-alt glyphicon-white"></span> load
             </button-->
             <!--span class="text-info">    Use explain:</span>
-            <label class="checkbox-inline"><input type="checkbox" ng-model="query.explain"/></label-->
+            <label class="checkbox-inline"><input type="checkbox" ng-model="query.explain"/></label>
             <span class="text-info">Highlight terms:</span>
-            <label class="checkbox-inline"><input type="checkbox" ng-model="query.highlight"/></label>
-            <span class="text-info">, Use multi search:</span>
+            <label class="checkbox-inline"><input type="checkbox" ng-model="query.highlight"/></label-->
+            <span class="text-info">Advanced search:</span>
             <label class="checkbox-inline"><input class="checkbox" type="checkbox" ng-model="query.multiSearch"></label>
         </div>
     </div>
     <div class="row" style="padding-bottom: 5px">
         <div class="col-md-12 alert alert-info" ng-hide="query.multiSearch">
-            <span class="col-md-3"><input type="search" class="form-control" ng-model="query.term"
+            <span class="col-md-3">
+                <input type="search" class="form-control" ng-model="query.term"
                                           placeholder="Enter search terms"/></span>
             <button type="submit" class="btn btn-primary" title="Execute query">Search <span
                     class="glyphicon glyphicon-search glyphicon-white"></span></button>
-            <label class="radio-inline">
-                <input type="radio" ng-model="query.type" value="or">ANY TERM
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="query.type" value="and">ALL TERMS
-            </label>
-            <!--label class="radio-inline">
+            <span>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="query.type" value="or">ANY TERM
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="query.type" value="and">ALL TERMS
+                </label>
+            </span>
+                
+                <!--label class="radio-inline">
                 <input type="radio" ng-model="query.type" value="phrase">PHRASE
-            </label-->
+                </label-->
         </div>
         <div class="col-md-12 alert alert-info" ng-show="query.multiSearch">
             <div class="row">
@@ -119,7 +113,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" ng-show="queryResults.hits">
     <div class="col-md-12">
         <div class="panel panel-default" style="margin-left:-15px;">
             <div class="panel-heading">
