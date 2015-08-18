@@ -1,4 +1,4 @@
-/*! elasticsearch-gui - v1.2.1 - 2015-07-28
+/*! elasticsearch-gui - v1.2.1 - 2015-08-18
 * https://github.com/aih/elasticsearch-gui
 * Copyright (c) 2015 ; Licensed  */
 (function(window, document, undefined) {'use strict';
@@ -77692,6 +77692,13 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         searchField.text = $scope.query.advanced.newText;
         searchField.type = $scope.query.advanced.newType;
         $scope.query.advanced.searchFields.push(searchField);
+    };
+
+    $scope.restoreSearchField = function (index) {
+        $scope.query.advanced.newField = $scope.query.advanced.searchFields[index].field;
+        $scope.query.advanced.newText = $scope.query.advanced.searchFields[index].text;
+        $scope.query.advanced.newType = $scope.query.advanced.searchFields[index].type;
+        $scope.query.advanced.searchFields.splice(index, 1);
     };
 
     $scope.removeSearchField = function (index) {

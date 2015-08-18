@@ -133,6 +133,13 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         $scope.query.advanced.searchFields.push(searchField);
     };
 
+    $scope.restoreSearchField = function (index) {
+        $scope.query.advanced.newField = $scope.query.advanced.searchFields[index].field;
+        $scope.query.advanced.newText = $scope.query.advanced.searchFields[index].text;
+        $scope.query.advanced.newType = $scope.query.advanced.searchFields[index].type;
+        $scope.query.advanced.searchFields.splice(index, 1);
+    };
+
     $scope.removeSearchField = function (index) {
         $scope.query.advanced.searchFields.splice(index, 1);
     };

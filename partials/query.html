@@ -73,7 +73,9 @@
                 <div class="col-md-12">
                     <div ng-repeat="searchField in query.advanced.searchFields">
                         {{searchField.field}} = {{searchField.text}} ({{searchField.type}}) <button class="btn btn-link" ng-click="removeSearchField($index)"><span
-                            class="glyphicon glyphicon-remove"></span></button>
+                            class="glyphicon glyphicon-remove"></span></button><button class="btn btn-link" ng-click="restoreSearchField($index)"><span
+                            class="glyphicon glyphicon-edit"></span></button>
+
                     </div>
                 </div>
             </div>
