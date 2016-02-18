@@ -13,60 +13,19 @@
     </div>
 </div>
 <form novalidate class="form-search" ng-submit="restartSearch()">
-    <div class="row">
-        <div class="col-md-9">
-            <!--button class="btn btn-info btn-sm" ng-click="saveQuery()"><span
-                    class="glyphicon glyphicon-share glyphicon-white"></span> save
-            </button>
-            <button class="btn btn-info btn-sm" ng-click="loadQuery()"><span
-                    class="glyphicon glyphicon-download-alt glyphicon-white"></span> load
-            </button-->
-            <!--span class="text-info">    Use explain:</span>
-            <label class="checkbox-inline"><input type="checkbox" ng-model="query.explain"/></label>
-            <span class="text-info">Advanced search:</span>
-            <label class="checkbox-inline"><input class="checkbox" type="checkbox" ng-model="query.multiSearch"></label-->
-        </div>
-    </div>
     <div class="row" style="padding-bottom: 5px">
-        <div class="col-md-12 alert alert-info" ng-hide="query.multiSearch">
-            <span class="col-md-3">
-                <input type="search" class="form-control" ng-model="query.term"
-                                          placeholder="Enter search terms"/></span>
-            <button type="submit" class="btn btn-primary" title="Execute query" >Search <span
-                    class="glyphicon glyphicon-search glyphicon-white"></span></button>
-            <span>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="query.type" value="or">ANY TERM
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="query.type" value="and">ALL TERMS
-                </label>
-            </span>
-                
-                <!--label class="radio-inline">
-                <input type="radio" ng-model="query.type" value="phrase">PHRASE
-                </label-->
-        </div>
         <div class="col-md-12 alert alert-info" ng-show="query.multiSearch">
             <div class="row" style="margin-bottom:10px;">
                 <div class="col-xs-3">
                     <select class="form-control" ng-model="query.advanced.newField"
                             ng-options="key as value.forPrint for (key,value) in fields">
-                        <option value="">-- chose field --</option>
                     </select>
                 </div>
                 <div class="col-xs-3">
                     <input class="form-control" type="search" ng-model="query.advanced.newText" autofocus="true"
                            placeholder="Type your search string"/>
                 </div>
-                <div class="col-xs-2">
-                    <select class="form-control" ng-model="query.advanced.newType">
-                        <option value="or" selected>ANY TERM</option>
-                        <option value="and">ALL TERMS</option>
-                        <!--option value="phrase">PHRASE</option-->
-                    </select>
-                </div>
-                <button class="btn btn-info" ng-click="addSearchField()"><span class="glyphicon glyphicon-plus-sign glyphicon-white"></span> Add</button>
+               <button class="btn btn-info" ng-click="addSearchField()"><span class="glyphicon glyphicon-plus-sign glyphicon-white"></span> Add</button>
             
             </div>
             <div class="row">
@@ -92,77 +51,39 @@
     </div>
 </form>
 
-<!--div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title">Query</h3>
-            </div>
-            <div class="panel-body">
-                <pre>{{createdQuery}}</pre>
-            </div>
-        </div>
-    </div>
-</div-->
-<div class="row" ng-show="metaResults.failedShards">
-    <div class="col-md-12">
-        <h3>Errors</h3>
-
-        <div class="alert alert-danger" ng-repeat="error in metaResults.errors">
-            {{error}}
-        </div>
-    </div>
-</div>
-
 <div class="row" ng-show="queryResults.hits">
     <div class="col-md-12">
         <div class="panel panel-default" style="margin-left:-15px;">
             <div class="panel-heading">
                 <h3 class="panel-title">Results</h3>
 
-                <p style="margin-top:10px;">Total hits "{{queryResults.total}}", Max score "{{queryResults.max_score}}"</p>
-                <label class="checkbox-inline">Highlight Terms<input type="checkbox" ng-model="query.highlight"/></label>
+                <p style="margin-top:10px;">Total hits "{{queryResults.total}}"</p>
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-2">
-                        <span class="text-info">Index</span>
+                    <div class="col-md-1">
+                        <span class="text-info">Location</span>
                     </div>
                     <div class="col-md-3">
-                        <span class="text-info">ID</span>
-                    </div>
-                    <div class="col-md-1">
-                        <span class="text-info">Score</span>
+                        <span class="text-info">Text</span>
                     </div>
                 </div>
 
                 <div ng-repeat="doc in queryResults.hits">
                     <div class="row" ng-click="doc.showDetails = !doc.showDetails" style="cursor:pointer;" >
-                        <div class="col-md-2" ng-style="doc.showDetails && {'background-color': '#31beb1'}" style="background-clip:content-box">{{doc._index}}</div>
-                        <div class="col-md-3" >{{doc._id}}</div>
-                        <div class="col-md-1" >{{doc._score}}</div>
+                        <div class="col-md-1" ng-style="doc.showDetails && {'background-color': '#31beb1'}" style="background-clip:content-box">p.{{doc._source['pagenumber']}}</div>
+                        <div class="col-md-8" ng-bind-html="doc.highlight['text'].join('...')"></div>
                     </div>
                     <div class="row" ng-show="doc.showDetails">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <table class="table table-condensed" ng-hide="query.highlight" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
+                                    <table class="table table-condensed" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
                                         <tr ng-repeat="(key,value) in doc._source">
                                             <th>{{key}}</th>
                                             <td><div ng-bind-html="value|formatDate"></div></td>
                                         </tr>
                                     </table>
-                                    <table class="table table-condensed" ng-show="query.highlight" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
-                                        <tr ng-repeat="(key,value) in doc.highlight">
-                                            <th>{{key}}</th>
-                                            <td><div ng-repeat="item in value"><div ng-bind-html="item|formatDate"></div></div></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-md-4">
-                                    <h3 ng-show="query.explain">Explanation</h3>
-
-                                    <p>{{doc._explanation}}</p>
                                 </div>
                             </div>
                         </div>
