@@ -48,7 +48,6 @@
                 <div ng-repeat="doc in queryResults.hits" style="margin-bottom:15px">
                     <div class="row" ng-click="doc.showDetails = !doc.showDetails" style="cursor:pointer;" >
                         <div class="col-xs-1 col-md-1" ng-style="doc.showDetails && {'background-color': '#31beb1'}" style="background-clip:content-box">p.{{doc._source['pagenumber']}}</div>
-                        <div class="col-xs-6 col-sm-6 col-md-8" ng-bind-html="doc.highlight['text']"></div>
                         <div class="col-xs-6 col-sm-6 col-md-8" ng-bind-html="doc.highlight['text'].join('...')"></div>
                     </div>
                     <div class="row" ng-show="doc.showDetails">
