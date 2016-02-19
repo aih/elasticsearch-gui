@@ -134,17 +134,6 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         $scope.query.advanced.searchFields.push(searchField);
     };
 
-    $scope.restoreSearchField = function (index) {
-        $scope.query.advanced.newField = $scope.query.advanced.searchFields[index].field;
-        $scope.query.advanced.newText = $scope.query.advanced.searchFields[index].text;
-        $scope.query.advanced.newType = $scope.query.advanced.searchFields[index].type;
-        $scope.query.advanced.searchFields.splice(index, 1);
-    };
-
-    $scope.removeSearchField = function (index) {
-        $scope.query.advanced.searchFields.splice(index, 1);
-    };
-
     $scope.removeAggregateField = function (name) {
         delete $scope.query.aggs[name];
         $scope.changeQuery();
@@ -219,11 +208,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         });
     };
 
-    $scope.saveQuery = function () {
-        queryStorage.saveQuery(angular.copy($scope.query));
-    };
-
-    $scope.loadQuery = function () {
+   $scope.loadQuery = function () {
         queryStorage.loadQuery(function (data) {
             $scope.query = angular.copy(data);
             $scope.changeQuery();
@@ -262,39 +247,13 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
                 "encoder" : "html",
                 "fields": {}};
             angular.forEach(Object.keys($scope.fields), function (value) {
-                highlight.fields[value] = {"fragmentSize": "200"};
+                highlight.fields[value] = {"fragmentSize": "120"};
             });
             query.body.highlight = highlight;
         return query;
     }
 
-   function defineNestedPathInTree(tree, path, nestedPath) {
-        var pathItems = path.split(".");
-        if (pathItems.length > 1) {
-            defineNestedPathInTree(tree[pathItems[0]], pathItems.splice(1).join("."), nestedPath);
-        } else {
-            tree[path]._nested = nestedPath;
-        }
-
-    }
-
-    function recurseTree(tree, newKey, value, type) {
-        var newKeys = newKey.split(".");
-
-        if (newKeys.length > 1) {
-            if (!tree.hasOwnProperty(newKeys[0])) {
-                tree[newKeys[0]] = {};
-            }
-            recurseTree(tree[newKeys[0]], newKeys.splice(1).join("."), value, type);
-        } else {
-            if (!tree.hasOwnProperty(newKey)) {
-                tree[newKey] = value;
-                tree['_type_' + newKey] = type;
-            }
-        }
-    }
-
-    this.errorCallback = function (errors) {
+   this.errorCallback = function (errors) {
         console.log(errors);
     };
 
