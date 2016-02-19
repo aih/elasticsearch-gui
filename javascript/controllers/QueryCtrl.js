@@ -10,7 +10,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
     $scope.queryFactory = {};
     $scope.query = {};
 
-    $scope.query.chosenFields = [];
+    $scope.query.chosenFields = ['text'];
     $scope.query.aggs = {};
     $scope.query.indices = {};
     $scope.query.types = {};
@@ -127,9 +127,10 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
 
     $scope.addSearchField = function () {
         var searchField = {};
-        searchField.field = $scope.query.advanced.newField;
+        searchField.field = $scope.query.advanced.newField || 'text' ;
         searchField.text = $scope.query.advanced.newText;
-        searchField.type = $scope.query.advanced.newType;
+        searchField.type = 'or';
+        //searchField.type = $scope.query.advanced.newType;
         $scope.query.advanced.searchFields.push(searchField);
     };
 
@@ -247,103 +248,27 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
         });
         query.index = chosenIndices.toString();
 
-        var chosenTypes = [];
-        angular.forEach($scope.query.types, function (value) {
-            if (value.state) {
-                chosenTypes.push(value.name);
-            }
-        });
-        query.type = chosenTypes.toString();
 
-        if ($scope.query.chosenFields.length > 0) {
-            query.fields = $scope.query.chosenFields.toString();
-        }
-        if ($scope.query.multiSearch && $scope.query.advanced.searchFields.length > 0) {
-            var tree = {};
-            console.log($scope.fields);
-            for (var i = 0; i < $scope.query.advanced.searchFields.length; i++) {
-                var searchField = $scope.query.advanced.searchFields[i];
-                var fieldForSearch = $scope.fields[searchField.field];
-                recurseTree(tree, searchField.field, searchField.text, searchField.type);
-                if (fieldForSearch.nestedPath) {
-                    defineNestedPathInTree(tree, fieldForSearch.nestedPath, fieldForSearch.nestedPath);
-                }
-            }
-            query.body.query = constructQuery(tree);
+        var query_string =  {
+            "default_field" : "text",
+            "query" : $scope.query.advanced.newText
+        };
+      
+        query.body.query.query_string = query_string;
 
-        } else if ($scope.query.term.length > 0) {
-            var matchPart = {};
-            matchPart.query = $scope.query.term;
-            if ($scope.query.type === 'phrase') {
-                matchPart.type = "phrase";
-            } else {
-                matchPart.operator = $scope.query.type;
-            }
-            query.body.query.match = {"_all": matchPart};
-        } else {
-            query.body.query.matchAll = {};
-        }
-
-        query.body.aggs = aggregateBuilder.build($scope.query.aggs);
-
-        query.body.explain = $scope.query.explain;
         var highlight = { 
                 "pre_tags" : ["<mark>"],
                 "post_tags" : ["</mark>"], 
                 "encoder" : "html",
                 "fields": {}};
-        //TODO only add highlighting for fields selected in config or by user
-        //TODO set fragment size in configuration
             angular.forEach(Object.keys($scope.fields), function (value) {
-                highlight.fields[value] = {"fragmentSize": "100"};
+                highlight.fields[value] = {"fragmentSize": "200"};
             });
             query.body.highlight = highlight;
         return query;
     }
 
-    function constructQuery(tree) {
-        var props = Object.getOwnPropertyNames(tree);
-        var boolQuery = {};
-        boolQuery.bool = {};
-        boolQuery.bool.must = [];
-        for (var i = 0; i < props.length; i++) {
-            var prop = props[i];
-            if (tree[prop] instanceof Object) {
-                boolQuery.bool.must.push(constructQuery(tree[prop]));
-            } else if (!(prop.substring(0, 1) === "_")) {
-                var fieldName = prop;
-                if (tree._nested) {
-                    fieldName = tree._nested + "." + fieldName;
-                }
-
-                var matchQuery = {};
-                matchQuery[fieldName] = {};
-                matchQuery[fieldName].query = tree[prop];
-                if ($scope.query.type === 'phrase') {
-                    matchQuery[fieldName].type = "phrase";
-                } else {
-                    console.log(tree[prop] + '-' + tree['_type_'+prop]);
-                    matchQuery[fieldName].operator = tree['_type_'+prop];
-                }
-                boolQuery.bool.must.push({"match": matchQuery});
-            }
-        }
-
-        var returnQuery;
-        if (tree._nested) {
-            var nestedQuery = {};
-            nestedQuery.nested = {};
-            nestedQuery.nested.path = tree._nested;
-            nestedQuery.nested.query = boolQuery;
-            returnQuery = nestedQuery;
-        } else {
-            returnQuery = boolQuery;
-        }
-
-        return returnQuery;
-    }
-
-    function defineNestedPathInTree(tree, path, nestedPath) {
+   function defineNestedPathInTree(tree, path, nestedPath) {
         var pathItems = path.split(".");
         if (pathItems.length > 1) {
             defineNestedPathInTree(tree[pathItems[0]], pathItems.splice(1).join("."), nestedPath);

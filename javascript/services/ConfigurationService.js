@@ -19,7 +19,7 @@ serviceModule.factory('configuration', ['$rootScope', 'localStorage', '$location
             configuration = {
                 title: undefined,
                 description: undefined,
-                includedIndexes: 'constitution',
+                includedIndexes: 'constitutiona',
                 displayFields: undefined,
                 highlightFields: undefined,
                 excludedIndexes: undefined,
