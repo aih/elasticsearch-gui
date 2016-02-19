@@ -55,9 +55,9 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <table class="table table-condensed" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
-                                        <tr ng-repeat="(key,value) in doc._source" ng-if="key!='text'">
-                                            <th >{{key}}</th>
-                                            <td><div ng-bind-html="value"></div></td>
+                                        <tr >
+                                            <th >Preview</th>
+                                            <td><div ng-bind-html="doc._source.html"></div></td>
                                         </tr>
                                     </table>
                                 </div>
