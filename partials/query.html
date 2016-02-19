@@ -56,12 +56,12 @@
                                 <div class="col-md-8">
                                     <table class="table table-condensed" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
                                         <tr >
-                                            <th >Keywords (score)</th>
-                                            <td><div >{{doc._source.keywords}}</div></td>
-                                        </tr>
-                                        <tr >
                                             <th >Preview</th>
                                             <td><div ng-bind-html="doc._source.html"></div></td>
+                                        </tr>
+                                        <tr >
+                                            <th >Keyword (score)</th>
+                                            <td><span ng-repeat="keyword in doc._source.keywords">{{keyword[0]}}&#160;({{keyword[1].toFixed(2)}})&#160;&#160;</span></span></td>
                                         </tr>
                                     </table>
                                 </div>
