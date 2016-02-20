@@ -56,8 +56,8 @@
                                 <div class="col-md-8">
                                     <table class="table table-condensed" style="background-color: #F0F0F0; border-left: 3px solid #31beb1;">
                                         <tr >
-                                            <th >Keyword (score)</th>
-                                            <td><span ng-repeat="keyword in doc._source.keywords">{{keyword['keyword']}}&#160;({{keyword['relevance']}})&#160;&#160;</span></span></td>
+                                            <th >Keywords</th>
+                                            <td><span ng-repeat="keyword in doc._source.keywords">{{keyword[0]}}&#160;({{keyword[1]}})&#160;&#160;</span></span></td>
                                         </tr>
                                         <tr >
                                             <th >Preview</th>
