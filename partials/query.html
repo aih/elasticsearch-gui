@@ -46,7 +46,7 @@
                 </div>
 
                 <div ng-repeat="doc in queryResults.hits" style="margin-bottom:15px">
-                    <div class="row" ng-click="doc.showDetails = !doc.showDetails" style="cursor:pointer;" >
+                    <div class="row" ng-click="doc.showDetails = !doc.showDetails;" style="cursor:pointer;" >
                         <div class="col-xs-1 col-md-1" ng-style="doc.showDetails && {'background-color': '#31beb1'}" style="background-clip:content-box">p.{{doc._source['pagenumber']}}</div>
                         <div class="col-xs-6 col-sm-6 col-md-8" ng-bind-html="doc.highlight['text'].join('...')"></div>
                     </div>
@@ -60,7 +60,7 @@
                                             <td><span ng-repeat="keyword in doc._source.keywords">{{keyword[0]}}&#160;({{keyword[1].toFixed(2)}})&#160;&#160;</span></span></td>
                                         </tr>
                                         <tr >
-                                            <th >Preview</th>
+                                            <th >Preview&#160;<a href="{{doc.pdfurl| trustAsResourceUrl}}" target="_blank">pdf</a></th>
                                             <td><div ng-bind-html="doc._source.html"></div></td>
                                         </tr>
                                     </table>

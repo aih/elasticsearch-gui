@@ -49,7 +49,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
     $scope.unbind.typesScope = function () {
     };
 
-    /* Functions to retrieve values used to created the query */
+    /* Functions to retrieve values used to create the query */
     $scope.loadIndices = function () {
         $scope.unbind.indicesScope();
         elastic.indexes(function (data) {
@@ -147,6 +147,10 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
 
         elastic.doSearch(request, function (results) {
             $scope.queryResults = results.hits;
+            for(var i=0; i< $scope.queryResults.hits.length; i++){
+                console.log(i);
+                $scope.queryResults.hits[i].pdfurl = '/pdf/pageindex-'+ $scope.queryResults.hits[i]._source.pageindex.toString()+'.pdf';
+            }
             $scope.aggsResults = results.aggregations;
             $scope.numPages = Math.ceil(results.hits.total / $scope.pageSize);
             $scope.totalItems = results.hits.total;

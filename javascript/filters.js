@@ -8,6 +8,11 @@ angular.module('myApp.filters', []).
       return String(text).replace(/\%VERSION\%/mg, version);
     }
   }]).
+  filter('trustAsResourceUrl', ['$sce', function($sce) {
+    return function(val) {
+        return $sce.trustAsResourceUrl(val);
+    };
+  }]).
   filter('formatDate', [function() {
     return function(text) {
       var newText = moment(text,'YYYY-MM-DDTHH:mm:ss.SSSSZ',true).isValid() ? moment(text,'YYYY-MM-DDTHH:mm:ss.SSSSZ').format('MM/DD/YY') : text;
