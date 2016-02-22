@@ -79074,6 +79074,14 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
 
 
     function createQuery() {
+       var highlight = { 
+                "pre_tags" : ["<mark>"],
+                "post_tags" : ["</mark>"], 
+                "encoder" : "html",
+                "fields": {}};
+        angular.forEach(Object.keys($scope.fields), function (value) {
+                highlight.fields[value] = {"fragmentSize": "120"};
+        });
         var query = {};
         query.index = "";
         query.body = {};
@@ -79098,15 +79106,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
       
         query.body.query.query_string = query_string;
 
-        var highlight = { 
-                "pre_tags" : ["<mark>"],
-                "post_tags" : ["</mark>"], 
-                "encoder" : "html",
-                "fields": {}};
-            angular.forEach(Object.keys($scope.fields), function (value) {
-                highlight.fields[value] = {"fragmentSize": "120"};
-            });
-            query.body.highlight = highlight;
+        query.body.highlight = highlight;
         return query;
     }
 

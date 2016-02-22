@@ -60,7 +60,7 @@
                                             <td><span ng-repeat="keyword in doc._source.keywords">{{keyword[0]}}&#160;({{keyword[1].toFixed(2)}})&#160;&#160;</span></span></td>
                                         </tr>
                                         <tr >
-                                            <th >Preview&#160;<a href="{{doc.pdfurl| trustAsResourceUrl}}" target="_blank">pdf</a></th>
+                                            <th >Preview&#160;(<a href="{{doc.pdfurl| trustAsResourceUrl}}" target="_blank">pdf</a>)</th>
                                             <td><div ng-bind-html="doc._source.html"></div></td>
                                         </tr>
                                     </table>
