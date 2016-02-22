@@ -79078,10 +79078,10 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
                 "pre_tags" : ["<mark>"],
                 "post_tags" : ["</mark>"], 
                 "encoder" : "html",
-                "fields": {}};
-        angular.forEach(Object.keys($scope.fields), function (value) {
-                highlight.fields[value] = {"fragmentSize": "120"};
-        });
+                "fields": {
+                    "text":{"fragmentSize":"120"}
+                }};
+
         var query = {};
         query.index = "";
         query.body = {};
