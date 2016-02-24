@@ -150,6 +150,7 @@ function QueryCtrl($scope, $modal, elastic, aggregateBuilder, queryStorage) {
             for(var i=0; i< $scope.queryResults.hits.length; i++){
                 console.log(i);
                 $scope.queryResults.hits[i].pdfurl = '/pdf/pageindex-'+ $scope.queryResults.hits[i]._source.pageindex.toString()+'.pdf';
+                $scope.queryResults.hits[i].htmlurl = '/html/page'+ ($scope.queryResults.hits[i]._source.pageindex +1).toString()+'.html';
             }
             $scope.aggsResults = results.aggregations;
             $scope.numPages = Math.ceil(results.hits.total / $scope.pageSize);
